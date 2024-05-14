@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnosis Video with Buttons</title>
+  <title>Video with Buttons</title>
   <style>
     body {
       margin: 0;
@@ -45,17 +45,21 @@
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
     .buttons button:hover {
       transform: scale(1.1);
     }
 
-    .buttons p {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #666;
+    .buttons button.active {
+      background-color: #FF5733; /* Red color */
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
     }
   </style>
 </head>
@@ -64,41 +68,54 @@
     <video id="video" autoplay></video>
     <div class="buttons">
       <div>
-        <button>1</button>
+        <button onclick="showInfo('Button 1')">1</button>
         <p>Button 1</p>
       </div>
       <div>
-        <button>2</button>
+        <button onclick="showInfo('Button 2')">2</button>
         <p>Button 2</p>
       </div>
       <div>
-        <button>3</button>
+        <button onclick="showInfo('Button 3')">3</button>
         <p>Button 3</p>
       </div>
       <div>
-        <button>4</button>
+        <button onclick="showInfo('Button 4')">4</button>
         <p>Button 4</p>
       </div>
       <div>
-        <button>5</button>
+        <button onclick="showInfo('Button 5')">5</button>
         <p>Button 5</p>
       </div>
       <div>
-        <button>6</button>
+        <button onclick="showInfo('Button 6')">6</button>
         <p>Button 6</p>
       </div>
       <div>
-        <button>7</button>
+        <button onclick="showInfo('Button 7')">7</button>
         <p>Button 7</p>
       </div>
       <div>
-        <button>8</button>
+        <button onclick="showInfo('Button 8')">8</button>
         <p>Button 8</p>
       </div>
     </div>
+    <div class="info" id="infoBox"></div>
   </div>
 
   <script>
+    function showInfo(info) {
+      var infoBox = document.getElementById('infoBox');
+      infoBox.textContent = info;
+      
+      var buttons = document.querySelectorAll('.buttons button');
+      buttons.forEach(function(button) {
+        button.classList.remove('active');
+      });
+      
+      event.target.classList.add('active');
+    }
+
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(function(stream) {
         var video = document.getElementById('video');
