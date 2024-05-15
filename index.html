@@ -179,6 +179,9 @@
         btn.classList.remove('active');
         btn.classList.remove('blue');
       });
+      buttons.forEach(function(btn) {
+        btn.clickCount = 0;
+      });
     });
   </script>
 </body>
