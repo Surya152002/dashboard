@@ -148,11 +148,13 @@
       var clicks = 0;
       button.addEventListener('click', function() {
         clicks++;
+        buttons.forEach(function(btn) {
+          btn.classList.remove('active');
+          btn.classList.remove('blue');
+        });
         if (clicks % 2 === 0) {
           this.classList.add('blue');
-          this.classList.remove('active');
         } else {
-          this.classList.remove('blue');
           this.classList.add('active');
         }
       });
