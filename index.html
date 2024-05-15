@@ -148,10 +148,6 @@
       var clickCount = 0;
       button.addEventListener('click', function() {
         clickCount++;
-        buttons.forEach(function(btn) {
-          btn.classList.remove('active');
-          btn.classList.remove('blue');
-        });
         if (clickCount % 2 === 1) {
           this.classList.add('active');
         } else {
