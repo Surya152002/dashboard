@@ -89,6 +89,17 @@
       font-size: 12px;
       color: #666;
     }
+
+    #resetButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -131,6 +142,7 @@
         <p>Button 8</p>
       </div>
     </div>
+    <button id="resetButton">Reset Colors</button>
   </div>
 
   <script>
@@ -144,15 +156,28 @@
       });
 
     var buttons = document.querySelectorAll('.buttons button');
+    var resetButton = document.getElementById('resetButton');
+
     buttons.forEach(function(button) {
       var clickCount = 0;
       button.addEventListener('click', function() {
         clickCount++;
-        if (clickCount % 2 === 1) {
+        buttons.forEach(function(btn) {
+          btn.classList.remove('active');
+          btn.classList.remove('blue');
+        });
+        if (clickCount === 1) {
           this.classList.add('active');
         } else {
           this.classList.add('blue');
         }
+      });
+    });
+
+    resetButton.addEventListener('click', function() {
+      buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+        btn.classList.remove('blue');
       });
     });
   </script>
