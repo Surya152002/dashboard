@@ -145,20 +145,18 @@
 
     var buttons = document.querySelectorAll('.buttons button');
     buttons.forEach(function(button) {
-      var lastClickTime = 0;
+      var clickCount = 0;
       button.addEventListener('click', function() {
-        var currentTime = new Date().getTime();
-        if (currentTime - lastClickTime < 300) {
-          this.classList.toggle('blue');
-          this.classList.remove('active');
-        } else {
-          buttons.forEach(function(btn) {
-            btn.classList.remove('active');
-            btn.classList.remove('blue');
-          });
+        clickCount++;
+        buttons.forEach(function(btn) {
+          btn.classList.remove('active');
+          btn.classList.remove('blue');
+        });
+        if (clickCount % 2 === 1) {
           this.classList.add('active');
+        } else {
+          this.classList.add('blue');
         }
-        lastClickTime = currentTime;
       });
     });
   </script>
