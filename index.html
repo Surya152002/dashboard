@@ -80,8 +80,8 @@
       background-color: #ff0000;
     }
 
-    .buttons button.blur {
-      filter: blur(3px);
+    .buttons button.blue {
+      background-color: #0000ff;
     }
 
     .buttons p {
@@ -131,11 +131,6 @@
         <p>Button 8</p>
       </div>
     </div>
-    <div class="timing-buttons">
-      <button id="startTimer">Start</button>
-      <button id="stopTimer">Stop</button>
-      <button id="clearTimer">Clear</button>
-    </div>
   </div>
 
   <script>
@@ -149,44 +144,14 @@
       });
 
     var buttons = document.querySelectorAll('.buttons button');
-    var lastTap = 0;
-    var delay = 300;
-
     buttons.forEach(function(button) {
       button.addEventListener('click', function() {
-        var currentTime = new Date().getTime();
-        var tapLength = currentTime - lastTap;
-
-        if (tapLength < delay) {
-          this.classList.toggle('blur');
-        } else {
-          buttons.forEach(function(btn) {
-            btn.classList.remove('active');
-          });
-          this.classList.add('active');
-        }
-
-        lastTap = currentTime;
+        buttons.forEach(function(btn) {
+          btn.classList.remove('active');
+          btn.classList.remove('blue');
+        });
+        this.classList.add('blue');
       });
-    });
-
-    var startButton = document.getElementById('startTimer');
-    var stopButton = document.getElementById('stopTimer');
-    var clearButton = document.getElementById('clearTimer');
-
-    startButton.addEventListener('click', function() {
-      // Add functionality to start timing
-      console.log('Timing started');
-    });
-
-    stopButton.addEventListener('click', function() {
-      // Add functionality to stop timing
-      console.log('Timing stopped');
-    });
-
-    clearButton.addEventListener('click', function() {
-      // Add functionality to clear timing
-      console.log('Timing cleared');
     });
   </script>
 </body>
