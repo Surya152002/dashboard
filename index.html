@@ -145,12 +145,16 @@
 
     var buttons = document.querySelectorAll('.buttons button');
     buttons.forEach(function(button) {
+      var clicks = 0;
       button.addEventListener('click', function() {
-        buttons.forEach(function(btn) {
-          btn.classList.remove('active');
-          btn.classList.remove('blue');
-        });
-        this.classList.add('blue');
+        clicks++;
+        if (clicks % 2 === 0) {
+          this.classList.add('blue');
+          this.classList.remove('active');
+        } else {
+          this.classList.remove('blue');
+          this.classList.add('active');
+        }
       });
     });
   </script>
