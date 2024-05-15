@@ -18,7 +18,6 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      
     }
 
     video {
@@ -60,6 +59,10 @@
       font-size: 14px;
       color: #666;
     }
+
+    .blur {
+      filter: blur(5px);
+    }
   </style>
 </head>
 <body>
@@ -67,36 +70,48 @@
     <video id="video" autoplay></video>
     <div class="buttons">
       <div>
-        <button>1</button>
+        <button id="button1">1</button>
         <p>Information 1</p>
       </div>
       <div>
-        <button>2</button>
+        <button id="button2">2</button>
         <p>Information 2</p>
       </div>
       <div>
-        <button>3</button>
+        <button id="button3">3</button>
         <p>Information 3</p>
       </div>
       <div>
-        <button>4</button>
+        <button id="button4">4</button>
         <p>Information 4</p>
       </div>
       <div>
-        <button>5</button>
+        <button id="button5">5</button>
         <p>Information 5</p>
       </div>
       <div>
-        <button>6</button>
+        <button id="button6">6</button>
         <p>Information 6</p>
       </div>
       <div>
-        <button>7</button>
+        <button id="button7">7</button>
         <p>Information 7</p>
       </div>
       <div>
-        <button>8</button>
+        <button id="button8">8</button>
         <p>Information 8</p>
+      </div>
+      <div>
+        <button id="start-timer">Start</button>
+        <p>Start Timer</p>
+      </div>
+      <div>
+        <button id="stop-timer">Stop</button>
+        <p>Stop Timer</p>
+      </div>
+      <div>
+        <button id="clear-timer">Clear</button>
+        <p>Clear Timer</p>
       </div>
     </div>
   </div>
@@ -110,6 +125,47 @@
       .catch(function(error) {
         console.error('Error accessing camera:', error);
       });
+
+    var buttons = document.querySelectorAll('.buttons button');
+    var startTimer = document.getElementById('start-timer');
+    var stopTimer = document.getElementById('stop-timer');
+    var clearTimer = document.getElementById('clear-timer');
+
+    var timerInterval;
+    var timerStartTime;
+    var timerDuration = 0;
+
+    buttons.forEach(function(button) {
+      button.addEventListener('dblclick', function() {
+        this.classList.toggle('blur');
+      });
+    });
+
+    startTimer.addEventListener('click', function() {
+      timerStartTime = new Date().getTime();
+      timerInterval = setInterval(updateTimer, 1000);
+    });
+
+    stopTimer.addEventListener('click', function() {
+      clearInterval(timerInterval);
+      timerDuration += new Date().getTime() - timerStartTime;
+      timerStartTime = null;
+    });
+
+    clearTimer.addEventListener('click', function() {
+      clearInterval(timerInterval);
+      timerDuration = 0;
+      timerStartTime = null;
+    });
+
+    function updateTimer() {
+      var currentTime = new Date().getTime() - timerStartTime + timerDuration;
+      var seconds = Math.floor((currentTime / 1000) % 60);
+      var minutes = Math.floor((currentTime / (1000 * 60)) % 60);
+      var hours = Math.floor((currentTime / (1000 * 60 * 60)) % 24);
+
+      console.log(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+    }
   </script>
 </body>
 </html>
