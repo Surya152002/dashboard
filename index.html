@@ -216,6 +216,7 @@
       <pre id="popupData"></pre>
     </div>
   </div>
+
 <script>
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(function(stream) {
@@ -230,6 +231,10 @@
     var resetButton = document.getElementById('resetButton');
     var startStopButton = document.getElementById('startStopButton');
     var timerDisplay = document.getElementById('timerDisplay');
+
+    var popupElement = document.getElementById('popup');
+    var closeButton = document.querySelector('.popup .close');
+    var popupData = document.getElementById('popupData');
 
     var isTimerRunning = false;
     var startTime = 0;
@@ -305,7 +310,7 @@
     }
 
     buttons.forEach(function(button) {
-      button.addEventListener('click', function(event) {
+      button.addEventListener('click', function() {
         if (this === activeButton) {
           clickCount++;
           if (clickCount % 2 === 0) {
@@ -340,8 +345,6 @@
         stopTimer();
       } else {
         startTimer();
-        // Remove the popup functionality here
-        popupElement.style.display = 'none';
       }
     });
 
