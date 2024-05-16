@@ -218,134 +218,137 @@
 
   <script>
     navigator.mediaDevices.getUserMedia({ video: true })
-      .then(function(stream) {
-        var video = document.getElementById('video');
-        video.srcObject = stream;
-      })
-      .catch(function(error) {
-        console.error('Error accessing camera:', error);
-      });
-    
-    var buttons = document.querySelectorAll('.buttons button');
-    var resetButton = document.getElementById('resetButton');
-    var startStopButton = document.getElementById('startStopButton');
-    var timerDisplay = document.getElementById('timerDisplay');
-    
-    var popupElement = document.getElementById('popup');
-    var closeButton = document.querySelector('.popup .close');
-    var popupData = document.getElementById('popupData');
-    
-    var isTimerRunning = false;
-    var startTime = 0;
-    var elapsedTime = 0;
-    var timerInterval;
-    
-    function formatTime(time) {
-      var minutes = Math.floor(time / 60000);
-      var seconds = Math.floor((time % 60000) / 1000);
-      return ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-    }
-    
-    function updateTimerDisplay() {
-      elapsedTime = new Date().getTime() - startTime;
-      timerDisplay.textContent = formatTime(elapsedTime);
-    }
-    
-    function startTimer() {
-      startTime = new Date().getTime();
-      timerInterval = setInterval(updateTimerDisplay, 1000);
-      isTimerRunning = true;
-      startStopButton.textContent = 'Stop';
-    }
-    
-    function stopTimer() {
-      clearInterval(timerInterval);
-      elapsedTime = new Date().getTime() - startTime;
-      timerDisplay.textContent = formatTime(elapsedTime);
-      isTimerRunning = false;
-      startStopButton.textContent = 'Start';
-    }
-    
-    buttons.forEach(function(button, index) {
-      var smokingTimeElement = document.getElementById(`smokingTime${index + 1}`);
-      button.addEventListener('click', function() {
-        var clickCount = 0;
-        buttons.forEach(function(btn) {
-          btn.classList.remove('active');
-          btn.classList.remove('blue');
-        });
-        clickCount++;
-        if (clickCount === 1) {
-          this.classList.add('active');
-        } else {
-          this.classList.add('blue');
-        }
-    
-        var popupDataObject = {
-          "_id": {
-            "$oid": "65d6f39429f8c24b21c7357a"
-          },
-          "name": "Khushi p shabadimath",
-          "age": {
-            "$numberInt": "20"
-          },
-          "phone": "8197759376",
-          "gender": "Female",
-          "locationNow": "Kims",
-          "lastMeal": [
-            "Sugar",
-            "Dairy"
-          ],
-          "prescribedDrugs": "-",
-          "isCurrentlySmoking": false,
-          "smokingTime": smokingTimeElement.textContent,
-          "isCurrentlyChewing": false,
-          "chewingTime": "not-chewing",
-          "selectedConditions": [],
-          "priorCancer": false,
-          "unique_id": "N1234123506",
-          "dogsMarked": [],
-          "notes": "",
-          "created_at": {
-            "$date": {
-              "$numberLong": "1708585876873"
-            }
-          },
-          "__v": {
-            "$numberInt": "0"
-          }
-        };
-    
-        popupData.textContent = JSON.stringify(popupDataObject, null, 2);
-        popupElement.style.display = 'block';
-      });
-    });
-    
-    resetButton.addEventListener('click', function() {
-      buttons.forEach(function(btn) {
-        btn.classList.remove('active');
-        btn.classList.remove('blue');
-      });
-      stopTimer();
-    });
-    
-    startStopButton.addEventListener('click', function() {
-      if (isTimerRunning) {
-        stopTimer();
-      } else {
-        startTimer();
+  .then(function(stream) {
+    var video = document.getElementById('video');
+    video.srcObject = stream;
+  })
+  .catch(function(error) {
+    console.error('Error accessing camera:', error);
+  });
+
+var buttons = document.querySelectorAll('.buttons button');
+var resetButton = document.getElementById('resetButton');
+var startStopButton = document.getElementById('startStopButton');
+var timerDisplay = document.getElementById('timerDisplay');
+
+var popupElement = document.getElementById('popup');
+var closeButton = document.querySelector('.popup .close');
+var popupData = document.getElementById('popupData');
+
+var isTimerRunning = false;
+var startTime = 0;
+var elapsedTime = 0;
+var timerInterval;
+
+function formatTime(time) {
+  var minutes = Math.floor(time / 60000);
+  var seconds = Math.floor((time % 60000) / 1000);
+  return ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+}
+
+function updateTimerDisplay() {
+  elapsedTime = new Date().getTime() - startTime;
+  timerDisplay.textContent = formatTime(elapsedTime);
+}
+
+function startTimer() {
+  startTime = new Date().getTime();
+  timerInterval = setInterval(updateTimerDisplay, 1000);
+  isTimerRunning = true;
+  startStopButton.textContent = 'Stop';
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  elapsedTime = new Date().getTime() - startTime;
+  timerDisplay.textContent = formatTime(elapsedTime);
+  isTimerRunning = false;
+  startStopButton.textContent = 'Start';
+  showPopup();
+}
+
+function showPopup() {
+  var popupDataObject = {
+    "_id": {
+      "$oid": "65d6f39429f8c24b21c7357a"
+    },
+    "name": "Khushi p shabadimath",
+    "age": {
+      "$numberInt": "20"
+    },
+    "phone": "8197759376",
+    "gender": "Female",
+    "locationNow": "Kims",
+    "lastMeal": [
+      "Sugar",
+      "Dairy"
+    ],
+    "prescribedDrugs": "-",
+    "isCurrentlySmoking": false,
+    "smokingTime": "not-smoking",
+    "isCurrentlyChewing": false,
+    "chewingTime": "not-chewing",
+    "selectedConditions": [],
+    "priorCancer": false,
+    "unique_id": "N1234123506",
+    "dogsMarked": [],
+    "notes": "",
+    "created_at": {
+      "$date": {
+        "$numberLong": "1708585876873"
       }
+    },
+    "__v": {
+      "$numberInt": "0"
+    }
+  };
+
+  popupData.textContent = JSON.stringify(popupDataObject, null, 2);
+  popupElement.style.display = 'block';
+}
+
+buttons.forEach(function(button, index) {
+  var smokingTimeElement = document.getElementById(`smokingTime${index + 1}`);
+  button.addEventListener('click', function() {
+    var clickCount = 0;
+    buttons.forEach(function(btn) {
+      btn.classList.remove('active');
+      btn.classList.remove('blue');
     });
-    
-    closeButton.addEventListener('click', function() {
-      popupElement.style.display = 'none';
-    });
-    
-    window.addEventListener('click', function(event) {
-      if (event.target == popupElement) {
-        popupElement.style.display = 'none';
-      }
-    });
+    clickCount++;
+    if (clickCount === 1) {
+      this.classList.add('active');
+    } else {
+      this.classList.add('blue');
+    }
+  });
+});
+
+resetButton.addEventListener('click', function() {
+  buttons.forEach(function(btn) {
+    btn.classList.remove('active');
+    btn.classList.remove('blue');
+  });
+  stopTimer();
+});
+
+startStopButton.addEventListener('click', function() {
+  if (isTimerRunning) {
+    stopTimer();
+  } else {
+    startTimer();
+  }
+});
+
+closeButton.addEventListener('click', function() {
+  popupElement.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target == popupElement) {
+    popupElement.style.display = 'none';
+  }
+});
   </script>
 </body>
 </html>
