@@ -311,12 +311,11 @@
       button.addEventListener('click', function() {
         buttons.forEach(function(btn) {
           btn.classList.remove('active');
-          btn.classList.remove('blue');
         });
         if (!this.classList.contains('active')) {
           this.classList.add('active');
         } else {
-          this.classList.add('blue');
+          this.classList.remove('active');
         }
       });
     });
@@ -324,7 +323,6 @@
     resetButton.addEventListener('click', function() {
       buttons.forEach(function(btn) {
         btn.classList.remove('active');
-        btn.classList.remove('blue');
       });
       stopTimer();
     });
@@ -346,6 +344,12 @@
       if (event.target == popupElement) {
         popupElement.style.display = 'none';
       }
+    });
+    
+    document.querySelectorAll('.buttons p').forEach(function(text) {
+      text.addEventListener('click', function() {
+        showPopup();
+      });
     });
   </script>
 </body>
