@@ -88,6 +88,7 @@
       margin-top: 5px;
       font-size: 12px;
       color: #666;
+      cursor: pointer;
     }
 
     #resetButton {
@@ -264,7 +265,6 @@
       timerDisplay.textContent = formatTime(elapsedTime);
       isTimerRunning = false;
       startStopButton.textContent = 'Start';
-      showPopup();
     }
     
     function showPopup() {
@@ -307,16 +307,13 @@
       popupElement.style.display = 'block';
     }
     
-    buttons.forEach(function(button, index) {
-      var smokingTimeElement = document.getElementById(`smokingTime${index + 1}`);
+    buttons.forEach(function(button) {
       button.addEventListener('click', function() {
-        var clickCount = 0;
         buttons.forEach(function(btn) {
           btn.classList.remove('active');
           btn.classList.remove('blue');
         });
-        clickCount++;
-        if (clickCount === 1) {
+        if (!this.classList.contains('active')) {
           this.classList.add('active');
         } else {
           this.classList.add('blue');
@@ -335,6 +332,7 @@
     startStopButton.addEventListener('click', function() {
       if (isTimerRunning) {
         stopTimer();
+        showPopup();
       } else {
         startTimer();
       }
