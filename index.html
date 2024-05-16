@@ -220,165 +220,172 @@
   </div>
 
 <script>
-    navigator.mediaDevices.getUserMedia({ video: true })
-  .then(function(stream) {
-    var video = document.getElementById('video');
-    video.srcObject = stream;
-  })
-  .catch(function(error) {
-    console.error('Error accessing camera:', error);
-  });
-
-var buttons = document.querySelectorAll('.buttons button');
-var resetButton = document.getElementById('resetButton');
-var startStopButton = document.getElementById('startStopButton');
-var timerDisplay = document.getElementById('timerDisplay');
-
-var popupElement = document.getElementById('popup');
-var closeButton = document.querySelector('.popup .close');
-var popupData = document.getElementById('popupData');
-
-var isTimerRunning = false;
-var startTime = 0;
-var elapsedTime = 0;
-var timerInterval;
-var activeButton = null;
-var clickCount = 0;
-
-var firstButtonInfo = document.getElementById('firstButtonInfo');
-var lastButtonInfo = document.getElementById('lastButtonInfo');
-var firstClickedButton = null;
-var lastClickedButton = null;
-
-function formatTime(time) {
-  var minutes = Math.floor(time / 60000);
-  var seconds = Math.floor((time % 60000) / 1000);
-  return ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-}
-
-function updateTimerDisplay() {
-  elapsedTime = new Date().getTime() - startTime;
-  timerDisplay.textContent = formatTime(elapsedTime);
-}
-
-function startTimer() {
-  startTime = new Date().getTime();
-  timerInterval = setInterval(updateTimerDisplay, 1000);
-  isTimerRunning = true;
-  startStopButton.textContent = 'Stop';
-}
-
-function stopTimer() {
-  clearInterval(timerInterval);
-  elapsedTime = new Date().getTime() - startTime;
-  timerDisplay.textContent = formatTime(elapsedTime);
-  isTimerRunning = false;
-  startStopButton.textContent = 'Start';
-}
-
-function showPopup() {
-  var popupDataObject = {
-    "_id": {
-      "$oid": "65d6f39429f8c24b21c7357a"
-    },
-    "name": "Khushi p shabadimath",
-    "age": {
-      "$numberInt": "20"
-    },
-    "phone": "8197759376",
-    "gender": "Female",
-    "locationNow": "Kims",
-    "lastMeal": [
-      "Sugar",
-      "Dairy"
-    ],
-    "prescribedDrugs": "-",
-    "isCurrentlySmoking": false,
-    "smokingTime": "not-smoking",
-    "isCurrentlyChewing": false,
-    "chewingTime": "not-chewing",
-    "selectedConditions": [],
-    "priorCancer": false,
-    "unique_id": "N1234123506",
-    "dogsMarked": [],
-    "notes": "",
-    "created_at": {
-      "$date": {
-        "$numberLong": "1708585876873"
-      }
-    },
-    "__v": {
-      "$numberInt": "0"
+   navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        var video = document.getElementById('video');
+        video.srcObject = stream;
+      })
+      .catch(function(error) {
+        console.error('Error accessing camera:', error);
+      });
+    
+    var buttons = document.querySelectorAll('.buttons button');
+    var resetButton = document.getElementById('resetButton');
+    var startStopButton = document.getElementById('startStopButton');
+    var timerDisplay = document.getElementById('timerDisplay');
+    
+    var popupElement = document.getElementById('popup');
+    var closeButton = document.querySelector('.popup .close');
+    var popupData = document.getElementById('popupData');
+    
+    var isTimerRunning = false;
+    var startTime = 0;
+    var elapsedTime = 0;
+    var timerInterval;
+    var activeButton = null;
+    var clickCount = 0;
+    
+    var firstButtonInfo = document.getElementById('firstButtonInfo');
+    var lastButtonInfo = document.getElementById('lastButtonInfo');
+    var firstClickedButton = null;
+    var lastClickedButton = null;
+    
+    function formatTime(time) {
+      var minutes = Math.floor(time / 60000);
+      var seconds = Math.floor((time % 60000) / 1000);
+      return ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
     }
-  };
-
-  popupData.textContent = JSON.stringify(popupDataObject, null, 2);
-  popupElement.style.display = 'block';
-}
-
-buttons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    if (this === activeButton) {
-      clickCount++;
-      if (clickCount % 2 === 0) {
-        this.classList.toggle('blue');
-        lastClickedButton = this;
-        lastButtonInfo.textContent = 'Last Button: ' + lastClickedButton.textContent;
-      }
-    } else {
+    
+    function updateTimerDisplay() {
+      elapsedTime = new Date().getTime() - startTime;
+      timerDisplay.textContent = formatTime(elapsedTime);
+    }
+    
+    function startTimer() {
+      startTime = new Date().getTime();
+      timerInterval = setInterval(updateTimerDisplay, 1000);
+      isTimerRunning = true;
+      startStopButton.textContent = 'Stop';
+    }
+    
+    function stopTimer() {
+      clearInterval(timerInterval);
+      elapsedTime = new Date().getTime() - startTime;
+      timerDisplay.textContent = formatTime(elapsedTime);
+      isTimerRunning = false;
+      startStopButton.textContent = 'Start';
+    }
+    
+    function showPopup() {
+      var popupDataObject = {
+        "_id": {
+          "$oid": "65d6f39429f8c24b21c7357a"
+        },
+        "name": "Khushi p shabadimath",
+        "age": {
+          "$numberInt": "20"
+        },
+        "phone": "8197759376",
+        "gender": "Female",
+        "locationNow": "Kims",
+        "lastMeal": [
+          "Sugar",
+          "Dairy"
+        ],
+        "prescribedDrugs": "-",
+        "isCurrentlySmoking": false,
+        "smokingTime": "not-smoking",
+        "isCurrentlyChewing": false,
+        "chewingTime": "not-chewing",
+        "selectedConditions": [],
+        "priorCancer": false,
+        "unique_id": "N1234123506",
+        "dogsMarked": [],
+        "notes": "",
+        "created_at": {
+          "$date": {
+            "$numberLong": "1708585876873"
+          }
+        },
+        "__v": {
+          "$numberInt": "0"
+        }
+      };
+    
+      popupData.textContent = JSON.stringify(popupDataObject, null, 2);
+      popupElement.style.display = 'block';
+    }
+    
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        if (this === activeButton) {
+          clickCount++;
+          if (clickCount % 2 === 0) {
+            if (this.classList.contains('blue')) {
+              this.classList.remove('blue');
+              lastClickedButton = null;
+              lastButtonInfo.textContent = '';
+            } else {
+              this.classList.add('blue');
+              lastClickedButton = this;
+              lastButtonInfo.textContent = 'Last Button: ' + lastClickedButton.textContent;
+            }
+          }
+        } else {
+          buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+            btn.classList.remove('blue');
+          });
+          this.classList.add('active');
+          activeButton = this;
+          clickCount = 1;
+          if (!firstClickedButton) {
+            firstClickedButton = this;
+            firstButtonInfo.textContent = 'First Button: ' + firstClickedButton.textContent;
+          }
+        }
+      });
+    });
+    
+    resetButton.addEventListener('click', function() {
       buttons.forEach(function(btn) {
         btn.classList.remove('active');
+        btn.classList.remove('blue');
       });
-      this.classList.add('active');
-      activeButton = this;
-      clickCount = 1;
-      if (!firstClickedButton) {
-        firstClickedButton = this;
-        firstButtonInfo.textContent = 'First Button: ' + firstClickedButton.textContent;
+      stopTimer();
+      firstButtonInfo.textContent = '';
+      lastButtonInfo.textContent = '';
+      firstClickedButton = null;
+      lastClickedButton = null;
+    });
+    
+    startStopButton.addEventListener('click', function() {
+      if (isTimerRunning) {
+        stopTimer();
+      } else {
+        startTimer();
+        if (activeButton) {
+          firstClickedButton = activeButton;
+          firstButtonInfo.textContent = 'First Button: ' + firstClickedButton.textContent;
+        }
       }
-    }
-  });
-});
-
-resetButton.addEventListener('click', function() {
-  buttons.forEach(function(btn) {
-    btn.classList.remove('active');
-    btn.classList.remove('blue');
-  });
-  stopTimer();
-  firstButtonInfo.textContent = '';
-  lastButtonInfo.textContent = '';
-  firstClickedButton = null;
-  lastClickedButton = null;
-});
-
-startStopButton.addEventListener('click', function() {
-  if (isTimerRunning) {
-    stopTimer();
-  } else {
-    startTimer();
-    if (activeButton) {
-      firstClickedButton = activeButton;
-      firstButtonInfo.textContent = 'First Button: ' + firstClickedButton.textContent;
-    }
-  }
-});
-
-closeButton.addEventListener('click', function() {
-  popupElement.style.display = 'none';
-});
-
-window.addEventListener('click', function(event) {
-  if (event.target == popupElement) {
-    popupElement.style.display = 'none';
-  }
-});
-
-document.querySelectorAll('.buttons p').forEach(function(text) {
-  text.addEventListener('click', function() {
-    showPopup();
-  });
-});
+    });
+    
+    closeButton.addEventListener('click', function() {
+      popupElement.style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(event) {
+      if (event.target == popupElement) {
+        popupElement.style.display = 'none';
+      }
+    });
+    
+    document.querySelectorAll('.buttons p').forEach(function(text) {
+      text.addEventListener('click', function() {
+        showPopup();
+      });
+    });
 
 </script>
 
