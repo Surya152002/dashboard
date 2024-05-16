@@ -308,6 +308,12 @@
       popupElement.style.display = 'block';
     }
 
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevents the click event from bubbling up
+      });
+    });
+
     resetButton.addEventListener('click', function() {
       buttons.forEach(function(btn) {
         btn.classList.remove('active');
@@ -319,6 +325,7 @@
     startStopButton.addEventListener('click', function() {
       if (isTimerRunning) {
         stopTimer();
+        showPopup();
       } else {
         startTimer();
       }
@@ -340,5 +347,6 @@
       });
     });
 </script>
+
 </body>
 </html>
