@@ -217,7 +217,7 @@
     </div>
   </div>
 
-  <script>
+<script>
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(function(stream) {
         var video = document.getElementById('video');
@@ -309,17 +309,8 @@
     }
 
     buttons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        if (this === activeButton) {
-          this.classList.toggle('blue');
-        } else {
-          buttons.forEach(function(btn) {
-            btn.classList.remove('active');
-            btn.classList.remove('blue');
-          });
-          this.classList.add('active');
-          activeButton = this;
-        }
+      button.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevents the click event from bubbling up
       });
     });
 
@@ -355,6 +346,6 @@
         showPopup();
       });
     });
-  </script>
+</script>
 </body>
 </html>
