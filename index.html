@@ -232,10 +232,6 @@
     var startStopButton = document.getElementById('startStopButton');
     var timerDisplay = document.getElementById('timerDisplay');
 
-    var popupElement = document.getElementById('popup');
-    var closeButton = document.querySelector('.popup .close');
-    var popupData = document.getElementById('popupData');
-
     var isTimerRunning = false;
     var startTime = 0;
     var elapsedTime = 0;
@@ -343,9 +339,10 @@
     startStopButton.addEventListener('click', function() {
       if (isTimerRunning) {
         stopTimer();
-        showPopup();
       } else {
         startTimer();
+        // Remove the popup functionality here
+        popupElement.style.display = 'none';
       }
     });
 
