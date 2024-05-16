@@ -308,21 +308,6 @@
       popupElement.style.display = 'block';
     }
 
-    buttons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        if (this === activeButton) {
-          this.classList.toggle('blue');
-        } else {
-          buttons.forEach(function(btn) {
-            btn.classList.remove('active');
-            btn.classList.remove('blue');
-          });
-          this.classList.add('active');
-          activeButton = this;
-        }
-      });
-    });
-
     resetButton.addEventListener('click', function() {
       buttons.forEach(function(btn) {
         btn.classList.remove('active');
@@ -334,7 +319,6 @@
     startStopButton.addEventListener('click', function() {
       if (isTimerRunning) {
         stopTimer();
-        showPopup();
       } else {
         startTimer();
       }
@@ -355,6 +339,6 @@
         showPopup();
       });
     });
-  </script>
+</script>
 </body>
 </html>
