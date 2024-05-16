@@ -216,7 +216,6 @@
       <pre id="popupData"></pre>
     </div>
   </div>
-
 <script>
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(function(stream) {
@@ -240,8 +239,6 @@
     var startTime = 0;
     var elapsedTime = 0;
     var timerInterval;
-    var activeButton = null;
-    var clickCount = 0;
 
     function formatTime(time) {
       var minutes = Math.floor(time / 60000);
