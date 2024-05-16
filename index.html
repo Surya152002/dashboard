@@ -168,6 +168,8 @@
     <div class="video-container">
       <video id="video" autoplay></video>
       <div class="info-box">I am Beagle</div>
+      <div class="info-box" id="firstButtonInfo"></div>
+      <div class="info-box" id="lastButtonInfo"></div>
     </div>
     <div class="buttons">
       <div>
@@ -218,7 +220,7 @@
   </div>
 
 <script>
-    navigator.mediaDevices.getUserMedia({ video: true })
+     navigator.mediaDevices.getUserMedia({ video: true })
       .then(function(stream) {
         var video = document.getElementById('video');
         video.srcObject = stream;
@@ -226,41 +228,45 @@
       .catch(function(error) {
         console.error('Error accessing camera:', error);
       });
-
+    
     var buttons = document.querySelectorAll('.buttons button');
     var resetButton = document.getElementById('resetButton');
     var startStopButton = document.getElementById('startStopButton');
     var timerDisplay = document.getElementById('timerDisplay');
-
+    
     var popupElement = document.getElementById('popup');
     var closeButton = document.querySelector('.popup .close');
     var popupData = document.getElementById('popupData');
-
+    
     var isTimerRunning = false;
     var startTime = 0;
     var elapsedTime = 0;
     var timerInterval;
     var activeButton = null;
     var clickCount = 0;
-
+    
+    var firstButtonInfo = document.getElementById('firstButtonInfo');
+    var lastButtonInfo = document.getElementById('lastButtonInfo');
+    var lastClickedButton = null;
+    
     function formatTime(time) {
       var minutes = Math.floor(time / 60000);
       var seconds = Math.floor((time % 60000) / 1000);
       return ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
     }
-
+    
     function updateTimerDisplay() {
       elapsedTime = new Date().getTime() - startTime;
       timerDisplay.textContent = formatTime(elapsedTime);
     }
-
+    
     function startTimer() {
       startTime = new Date().getTime();
       timerInterval = setInterval(updateTimerDisplay, 1000);
       isTimerRunning = true;
       startStopButton.textContent = 'Stop';
     }
-
+    
     function stopTimer() {
       clearInterval(timerInterval);
       elapsedTime = new Date().getTime() - startTime;
@@ -268,7 +274,7 @@
       isTimerRunning = false;
       startStopButton.textContent = 'Start';
     }
-
+    
     function showPopup() {
       var popupDataObject = {
         "_id": {
@@ -304,11 +310,11 @@
           "$numberInt": "0"
         }
       };
-
+    
       popupData.textContent = JSON.stringify(popupDataObject, null, 2);
       popupElement.style.display = 'block';
     }
-
+    
     buttons.forEach(function(button) {
       button.addEventListener('click', function() {
         if (this === activeButton) {
@@ -317,6 +323,8 @@
             this.classList.toggle('blue');
             this.classList.remove('active');
             activeButton = null;
+            lastClickedButton = this;
+            lastButtonInfo.textContent = 'Last Button: ' + lastClickedButton.textContent;
           } else {
             this.classList.add('active');
           }
@@ -328,18 +336,21 @@
           this.classList.add('active');
           activeButton = this;
           clickCount = 1;
+          firstButtonInfo.textContent = 'First Button: ' + this.textContent;
         }
       });
     });
-
+    
     resetButton.addEventListener('click', function() {
       buttons.forEach(function(btn) {
         btn.classList.remove('active');
         btn.classList.remove('blue');
       });
       stopTimer();
+      firstButtonInfo.textContent = '';
+      lastButtonInfo.textContent = '';
     });
-
+    
     startStopButton.addEventListener('click', function() {
       if (isTimerRunning) {
         stopTimer();
@@ -347,22 +358,23 @@
         startTimer();
       }
     });
-
+    
     closeButton.addEventListener('click', function() {
       popupElement.style.display = 'none';
     });
-
+    
     window.addEventListener('click', function(event) {
       if (event.target == popupElement) {
         popupElement.style.display = 'none';
       }
     });
-
+    
     document.querySelectorAll('.buttons p').forEach(function(text) {
       text.addEventListener('click', function() {
         showPopup();
       });
     });
+
 </script>
 
 </body>
