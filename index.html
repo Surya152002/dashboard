@@ -231,14 +231,12 @@
     var startStopButton = document.getElementById('startStopButton');
     var timerDisplay = document.getElementById('timerDisplay');
 
-    var popupElement = document.getElementById('popup');
-    var closeButton = document.querySelector('.popup .close');
-    var popupData = document.getElementById('popupData');
-
     var isTimerRunning = false;
     var startTime = 0;
     var elapsedTime = 0;
     var timerInterval;
+    var activeButton = null;
+    var clickCount = 0;
 
     function formatTime(time) {
       var minutes = Math.floor(time / 60000);
@@ -308,7 +306,24 @@
 
     buttons.forEach(function(button) {
       button.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevents the click event from bubbling up
+        if (this === activeButton) {
+          clickCount++;
+          if (clickCount % 2 === 0) {
+            this.classList.toggle('blue');
+            this.classList.remove('active');
+            activeButton = null;
+          } else {
+            this.classList.add('active');
+          }
+        } else {
+          buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+            btn.classList.remove('blue');
+          });
+          this.classList.add('active');
+          activeButton = this;
+          clickCount = 1;
+        }
       });
     });
 
@@ -325,6 +340,8 @@
         stopTimer();
       } else {
         startTimer();
+        // Remove the popup functionality here
+        popupElement.style.display = 'none';
       }
     });
 
