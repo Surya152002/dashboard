@@ -309,9 +309,13 @@
     }
 
     buttons.forEach(function(button) {
+      var clickCount = 0;
       button.addEventListener('click', function() {
         if (this === activeButton) {
-          this.classList.toggle('blue');
+          clickCount++;
+          if (clickCount % 2 === 0) {
+            this.classList.toggle('blue');
+          }
         } else {
           buttons.forEach(function(btn) {
             btn.classList.remove('active');
@@ -319,6 +323,7 @@
           });
           this.classList.add('active');
           activeButton = this;
+          clickCount = 1;
         }
       });
     });
