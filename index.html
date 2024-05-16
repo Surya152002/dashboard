@@ -309,8 +309,17 @@
     }
 
     buttons.forEach(function(button) {
-      button.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevents the click event from bubbling up
+      button.addEventListener('click', function() {
+        if (this === activeButton) {
+          this.classList.toggle('blue');
+        } else {
+          buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+            btn.classList.remove('blue');
+          });
+          this.classList.add('active');
+          activeButton = this;
+        }
       });
     });
 
@@ -346,6 +355,6 @@
         showPopup();
       });
     });
-</script>
+  </script>
 </body>
 </html>
