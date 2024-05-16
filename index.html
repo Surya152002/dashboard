@@ -310,13 +310,15 @@
     }
 
     buttons.forEach(function(button) {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', function(event) {
         if (this === activeButton) {
           clickCount++;
           if (clickCount % 2 === 0) {
             this.classList.toggle('blue');
             this.classList.remove('active');
             activeButton = null;
+          } else {
+            this.classList.add('active');
           }
         } else {
           buttons.forEach(function(btn) {
@@ -363,6 +365,7 @@
       });
     });
 </script>
+
 
 </body>
 </html>
