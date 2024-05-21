@@ -196,7 +196,7 @@
       </div>
       <div>
         <button id="button2">2</button>
-        <p id="smokingTime2">Khushi p shabadimath </p>
+        <p id="smokingTime2">Khushi p shabadimath</p>
       </div>
       <div>
         <button id="button3">3</button>
@@ -228,6 +228,10 @@
       <div id="timerDisplay">00:00</div>
     </div>
     <button id="resetButton">Reset Colors</button>
+    <div class="runs-input">
+      <input type="number" id="runsInput" placeholder="Enter number of runs">
+      <button id="overButton">Over</button>
+    </div>
   </div>
 
   <div id="popup" class="popup">
@@ -237,16 +241,7 @@
     </div>
   </div>
 
-<script>
-   navigator.mediaDevices.getUserMedia({ video: true })
-      .then(function(stream) {
-        var video = document.getElementById('video');
-        video.srcObject = stream;
-      })
-      .catch(function(error) {
-        console.error('Error accessing camera:', error);
-      });
-    
+  <script>
     var buttons = document.querySelectorAll('.buttons button');
     var resetButton = document.getElementById('resetButton');
     var startStopButton = document.getElementById('startStopButton');
@@ -294,7 +289,7 @@
       startStopButton.textContent = 'Start';
     }
     
-    function showPopup() {
+function showPopup() {
       var popupDataObject = {
         "_id": {
           "$oid": "65d6f39429f8c24b21c7357a"
@@ -405,7 +400,32 @@
       });
     });
 
-</script>
+    overButton.addEventListener('click', function() {
+      var runs = parseInt(document.getElementById('runsInput').value);
+      if (runs > 0) {
+        for (var i = 0; i < runs; i++) {
+          interchangeRedButton();
+        }
+      }
+    });
+
+    function interchangeRedButton() {
+      var redButtons = document.querySelectorAll('.buttons button.active');
+      if (redButtons.length > 0) {
+        var randomIndex = Math.floor(Math.random() * redButtons.length);
+        var randomButton = redButtons[randomIndex];
+        var randomButtonIndex = Array.from(buttons).indexOf(randomButton);
+        var newIndex;
+        
+        do {
+          newIndex = Math.floor(Math.random() * buttons.length);
+        } while (newIndex === randomButtonIndex);
+        
+        buttons[newIndex].classList.add('active');
+        randomButton.classList.remove('active');
+      }
+    }
+  </script>
 
 </body>
 </html>
