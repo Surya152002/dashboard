@@ -65,12 +65,14 @@
    
 
     .buttons {
-      display: flex;
+  
+  flex-direction: column;
+  align-items: center;
+display: flex;
       flex-wrap: wrap;
       justify-content: center;
       margin-bottom: 20px;
-    }
-
+}
     .buttons button {
       width: 60px;
       height: 60px;
@@ -85,7 +87,6 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
-
     .buttons button:hover {
       transform: scale(1.1);
     }
@@ -97,14 +98,24 @@
     .buttons button.blue {
       background-color: #0000ff;
     }
+.button-row, .input-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    .buttons p {
-      margin-top: 5px;
-      margin-bottom: 10px; 
-      font-size: 12px;
-      color: #666;
-      cursor: pointer;
-    }
+.button-row button {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+}
+.input-row input{
+  width: 60px;
+  height: 5px;
+  margin: 10px;
+}
+
+    
 
 
     #resetButton {
@@ -190,38 +201,27 @@
       </div>
     </div>
     <div class="buttons">
-      <div>
+      <div class="button-row">
         <button id="button1">1</button>
-        <p id="smokingTime1">Ashwin Dandaragi</p>
-      </div>
-      <div>
         <button id="button2">2</button>
-        <p id="smokingTime2">Khushi p shabadimath</p>
-      </div>
-      <div>
         <button id="button3">3</button>
-        <p id="smokingTime3">Promod konnur</p>
-      </div>
-      <div>
         <button id="button4">4</button>
-        <p id="smokingTime4">Ashwini naik</p>
-      </div>
-      <div>
         <button id="button5">5</button>
-        <p id="smokingTime5">Bhagyashree bijapur</p>
-      </div>
-      <div>
         <button id="button6">6</button>
-        <p id="smokingTime6">Hanumanth chavhan</p>
-      </div>
-      <div>
         <button id="button7">7</button>
-        <p id="smokingTime7">Gouramma n kunkur</p>
-      </div>
-      <div>
         <button id="button8">8</button>
-        <p id="smokingTime8">Nagaraj bandri</p>
       </div>
+      <div class="input-row">
+        <input type="text" id="smokingTime1" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime2" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime3" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime4" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime5" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime6" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime7" placeholder="Enter smoking time">
+        <input type="text" id="smokingTime8" placeholder="Enter smoking time">
+      </div>
+    
     </div>
     <div class="timing-controls">
       <button id="startStopButton">Start</button>
@@ -230,7 +230,7 @@
     <button id="resetButton">Reset Colors</button>
     <div class="runs-input">
       <input type="number" id="runsInput" placeholder="Enter number of runs">
-      <button id="overButton">Over</button>
+      <button id="overButton">Feed</button>
     </div>
   </div>
 
