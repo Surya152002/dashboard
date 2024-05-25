@@ -291,10 +291,11 @@ display: flex;
 
     var overButton = document.getElementById('overButton');
     var sessionInput = document.getElementById('sessionInput');
+    var runsInput = document.getElementById('runsInput');
     var runsRemaining = 0;
     
     overButton.addEventListener('click', function() {
-      var runs = parseInt(document.getElementById('runsInput').value);
+      var runs = parseInt(runsInput.value);
       var session = parseInt(sessionInput.value);
     
       if (runs > 0 && runsRemaining === 0) {
@@ -304,6 +305,7 @@ display: flex;
       if (runsRemaining > 0) {
         interchangeRedButton();
         runsRemaining--;
+        runsInput.value = runsRemaining;
       }
     });
     function formatTime(time) {
