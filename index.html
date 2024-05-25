@@ -245,6 +245,13 @@ display: flex;
       <div id="timerDisplay">00:00</div>
     </div>
     <button id="resetButton">Reset Colors</button>
+    <div class="session-input">
+      <select id="sessionInput">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </div>
     <div class="runs-input">
       <input type="number" id="runsInput" placeholder="Enter number of runs">
       <button id="overButton">Feed</button>
@@ -279,7 +286,24 @@ display: flex;
     var lastButtonInfo = document.getElementById('lastButtonInfo');
     var firstClickedButton = null;
     var lastClickedButton = null;
+
+    var overButton = document.getElementById('overButton');
+    var sessionInput = document.getElementById('sessionInput');
+    var runsRemaining = 0;
     
+    overButton.addEventListener('click', function() {
+      var runs = parseInt(document.getElementById('runsInput').value);
+      var session = parseInt(sessionInput.value);
+    
+      if (runs > 0 && runsRemaining === 0) {
+        runsRemaining = runs * session;
+      }
+    
+      if (runsRemaining > 0) {
+        interchangeRedButton();
+        runsRemaining--;
+      }
+    });
     function formatTime(time) {
       var minutes = Math.floor(time / 60000);
       var seconds = Math.floor((time % 60000) / 1000);
