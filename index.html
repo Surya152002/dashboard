@@ -283,6 +283,14 @@ display: flex;
   </div>
 
   <script>
+  navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          var video = document.getElementById('video');
+          video.srcObject = stream;
+        })
+        .catch(function(error) {
+          console.error('Error accessing camera:', error);
+        });
     var buttons = document.querySelectorAll('.buttons button');
     var resetButton = document.getElementById('resetButton');
     var startStopButton = document.getElementById('startStopButton');
